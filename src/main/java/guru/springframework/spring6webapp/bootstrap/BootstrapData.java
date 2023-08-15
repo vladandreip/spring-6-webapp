@@ -50,11 +50,25 @@ public class BootstrapData implements CommandLineRunner {
         westOfEden.setTitle("West Of Eden");
         westOfEden.setIsbn("123123");
         Book westOfEdenSaved = bookRepository.save(westOfEden);
+
         julesVerneSaved.getBooks().add(misteryIslandBookSaved);
         steinbeckSaved.getBooks().add(westOfEdenSaved);
 
         authorRepository.save(steinbeckSaved);
         authorRepository.save(julesVerneSaved);
+
+        Publisher publisher = new Publisher();
+        publisher.setPublisherName("Popescu Vlad");
+        publisher.setCity("Pitest");
+        publisher.setState("Arges");
+        publisher.setAddress("Gavenii 41");
+        publisherRepository.save(publisher);
+
+        misteryIslandBookSaved.setPublisher(publisher);
+        westOfEdenSaved.setPublisher(publisher);
+
+        bookRepository.save(misteryIslandBookSaved);
+        bookRepository.save(westOfEdenSaved);
 
         System.out.println("In bootstrap");
         System.out.println("Author count:" + authorRepository.count());
@@ -63,11 +77,6 @@ public class BootstrapData implements CommandLineRunner {
     }
 
     private void addPublisher() {
-        Publisher publisher = new Publisher();
-        publisher.setPublisherName("Popescu Vlad");
-        publisher.setCity("Pitest");
-        publisher.setState("Arges");
-        publisher.setAddress("Gavenii 41");
-        publisherRepository.save(publisher);
+
     }
 }
